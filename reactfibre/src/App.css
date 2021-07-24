@@ -16,7 +16,7 @@ body,
   -ms-user-select: none;
   user-select: none;
   /* overflow: hidden; */
-  background: #272727;
+  background: linear-gradient(147deg,#000000 0%,#04619f 74%);
 }
 
 body {
