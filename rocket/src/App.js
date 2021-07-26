@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Suspense } from "react"
+import React, { useState, useRef, Suspense } from "react"
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
@@ -12,7 +12,7 @@ extend({ OrbitControls })
 const SpaceShip = () => {
   const [model, setModel] = useState()
 
-  useEffect(() => {
+  useFrame(() => {
     new GLTFLoader().load("/scene.gltf", setModel)
   })
 
@@ -30,7 +30,7 @@ const Controls = () => {
   return (
     <orbitControls
       autoRotate
-      enablePan={false} 
+     enablePan={false} 
       args={[camera, gl.domElement]}
       ref={orbitRef}
  enableDamping dampingFactor={0.5} rotateSpeed={1} maxPolarAngle={Math.PI/2} minPolarAngle={Math.PI/2}
@@ -39,7 +39,7 @@ const Controls = () => {
 }
 
 
-export default () => {
+export default function App ()  {
   const isBrowser = typeof window !== "undefined"
 
   return (
