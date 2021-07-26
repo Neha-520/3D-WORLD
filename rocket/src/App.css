@@ -1,10 +1,54 @@
-body,
 html,
+body,
 #root,
-canvas{
-
-  height: 100%;
-  width: 100%;
+.bg,
+canvas {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
 }
+
+body {
+  background: #171717;
+}
+
+.bg {
+  position: absolute;
+  background: radial-gradient(at 50% 100%, #873740 0%, #272730 40%, #171720 80%, #070710 100%);
+}
+
+h1 {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 800;
+  font-size: 14em;
+  transform: translate3d(-50%, 0, 0);
+  margin: 0;
+  color: peru;
+  line-height: 0.8em;
+  letter-spacing: -15px;
+  text-align: center;
+}
+
+h1 > span {
+  white-space: pre;
+}
+/* }
+@media only screen and (max-width: 1000px) {
+  h1 {
+    transform: translate3d(-50%, 0, 0);
+    font-size: 8em;
+    letter-spacing: -5px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  h1 {
+    transform: translate3d(-50%, 0%, 0);
+    font-size: 4em;
+    letter-spacing: -5px;
+  }
+} */
