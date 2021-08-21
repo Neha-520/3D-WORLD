@@ -1,8 +1,29 @@
 import './App.css';
 import * as THREE from 'three';
-import { Canvas, useFrame, useLoader } from 'react-three-fiber';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { Canvas, extend, useFrame, useLoader, useThree } from 'react-three-fiber';
 import circleImg from './assets/circle.png';
 import { Suspense, useCallback, useMemo, useRef } from 'react';
+extend({ OrbitControls })
+
+function CameraControls() {
+  const {
+    camera,
+    gl: { domElement }
+  } = useThree();
+
+  const controlsRef = useRef();
+  useFrame(() => controlsRef.current.update())
+
+  return (
+    <orbitControls
+      ref={controlsRef}
+      args={[camera, domElement]}
+      autoRotate
+      autoRotateSpeed={-0.2}
+    />
+  );
+}
 
 function Points() {
   const imgTex = useLoader(THREE.TextureLoader, circleImg); //loading image as texture
@@ -10,7 +31,7 @@ function Points() {
 
   let t = 0; //phase shift
   let f = 0.002;  //frequency
-  let a = 3; //amplitude
+  let a = 3.2; //amplitude
 
   const graph = useCallback((x, z) => {
     return Math.sin(f * (x ** 2 + z ** 2 + t)) * a;
@@ -18,6 +39,8 @@ function Points() {
 
   const count = 100; //points across 1 axis
   const sep = 3; //distance between points
+
+  // try set count = 500, sep=0.1 will look like mesh
 
   //we cannot pass 2d array to bufferattribute,we passed 1-D array as [x1,y1,z1,x2,y2,z2...]
   let positions = useMemo(() => {
@@ -38,6 +61,7 @@ function Points() {
 
   useFrame(() => {
     t += 15;
+    //a+=0.1
     const positions = bufferRef.current.array;
 
     let i = 0;
@@ -54,6 +78,7 @@ function Points() {
   })
 
   return (
+    //points are placed in a grid
     <points>
       <bufferGeometry attach="geometry">
         {/*to read and edit data in bufferGeometry */}
@@ -91,6 +116,7 @@ function AnimationCanvas() {
         {/* //fallback ui here has to be displayable i.e inside canvas we can only display three js component while its loading */}
         <Points />
       </Suspense>
+      <CameraControls />
     </Canvas>
   );
 }
